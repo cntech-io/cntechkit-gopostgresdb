@@ -28,6 +28,21 @@ type postgresDBKit struct {
 
 func dsn() string {
 	env := NewPostgresDBEnv()
+	if env.Host == "" {
+		panic("POSTGRESDB_HOST is not set")
+	}
+	if env.Port == "" {
+		panic("POSTGRESDB_PORT is not set")
+	}
+	if env.Database == "" {
+		panic("POSTGRESDB_DATABASE is not set")
+	}
+	if env.Username == "" {
+		panic("POSTGRESDB_USERNAME is not set")
+	}
+	if env.Password == "" {
+		panic("POSTGRESDB_PASSWORD is not set")
+	}
 	return fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=disable",
 		env.Host,
 		env.Username,
