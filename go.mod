@@ -1,4 +1,4 @@
-module cntechkit-gopostgresdb
+module github.com/cntech-io/cntechkit-gopostgresdb
 
 go 1.20
 
