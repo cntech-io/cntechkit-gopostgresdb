@@ -11,6 +11,7 @@ type postgresDBEnv struct {
 	Password      string
 	Database      string
 	MigrationFlag bool
+	Schema        string
 }
 
 func NewPostgresDBEnv() *postgresDBEnv {
@@ -21,5 +22,6 @@ func NewPostgresDBEnv() *postgresDBEnv {
 		Username:      utils.GetStringEnv(string(POSTGRESDB_USERNAME), false),
 		Password:      utils.GetStringEnv(string(POSTGRESDB_PASSWORD), false),
 		MigrationFlag: utils.GetBooleanEnv(string(POSTGRESDB_MIGRATION_FLAG), false),
+		Schema:        utils.GetStringEnv(string(POSTGRESDB_SCHEMA), false),
 	}
 }

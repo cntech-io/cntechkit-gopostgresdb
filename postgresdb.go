@@ -19,6 +19,7 @@ const (
 	POSTGRESDB_USERNAME       PostgresDBEnvName = "POSTGRESDB_USERNAME"
 	POSTGRESDB_PASSWORD       PostgresDBEnvName = "POSTGRESDB_PASSWORD"
 	POSTGRESDB_MIGRATION_FLAG PostgresDBEnvName = "POSTGRESDB_MIGRATION_FLAG"
+	POSTGRESDB_SCHEMA         PostgresDBEnvName = "POSTGRESDB_SCHEMA"
 )
 
 type postgresDBKit struct {
@@ -41,11 +42,10 @@ func NewPostgresDB() *postgresDBKit {
 }
 
 func (pdb *postgresDBKit) Connect() *postgresDBKit {
-	var db *gorm.DB
-	var err error
 	var logMode logger.Interface
 
 	serverEnv := gokit.NewServerEnv()
+	env := NewPostgresDBEnv()
 
 	if serverEnv.DebugModeFlag {
 		logMode = logger.Default.LogMode(logger.Info)
@@ -53,11 +53,11 @@ func (pdb *postgresDBKit) Connect() *postgresDBKit {
 		logMode = logger.Default.LogMode(logger.Silent)
 	}
 
-	db, err = gorm.Open(postgres.Open(dsn()), &gorm.Config{
+	db, err := gorm.Open(postgres.Open(dsn()), &gorm.Config{
 		QueryFields: true,
 	}, &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "cntech.", // schema name
+			TablePrefix:   fmt.Sprintf("%v.", env.Schema),
 			SingularTable: false,
 		},
 		Logger: logMode,
