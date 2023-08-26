@@ -81,6 +81,9 @@ func (pdb *postgresDBKit) Connect() *postgresDBKit {
 		panic("Failed to connect to PostgreSQL: " + err.Error())
 	}
 	fmt.Println("Connected to PostgreSQL")
+	gokit.NewLogger(
+		&gokit.LoggerConfig{AppName: "cntechkitgopostgresdb"},
+	).Info("Connected to PostgreSQL")
 	pdb.client = db
 
 	return pdb
