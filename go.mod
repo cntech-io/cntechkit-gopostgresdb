@@ -3,9 +3,9 @@ module github.com/cntech-io/cntechkit-gopostgresdb
 go 1.20
 
 require (
-	github.com/cntech-io/cntechkit-go v1.0.0
+	github.com/cntech-io/cntechkit-go v1.0.1
 	gorm.io/driver/postgres v1.5.2
-	gorm.io/gorm v1.25.0
+	gorm.io/gorm v1.25.4
 )
 
 require (
