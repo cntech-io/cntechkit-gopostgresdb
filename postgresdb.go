@@ -80,6 +80,7 @@ func (pdb *postgresDBKit) Connect() *postgresDBKit {
 	if err != nil {
 		panic("Failed to connect to PostgreSQL: " + err.Error())
 	}
+	fmt.Println("Connected to PostgreSQL")
 	pdb.client = db
 
 	return pdb
