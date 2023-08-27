@@ -26,8 +26,9 @@ type postgresDBKit struct {
 	client *gorm.DB
 }
 
+var env = NewPostgresDBEnv()
+
 func dsn() string {
-	env := NewPostgresDBEnv()
 	if env.Host == "" {
 		panic("POSTGRESDB_HOST is not set")
 	}
@@ -60,7 +61,6 @@ func (pdb *postgresDBKit) Connect() *postgresDBKit {
 	var logMode logger.Interface
 
 	serverEnv := gokit.NewServerEnv()
-	env := NewPostgresDBEnv()
 
 	if serverEnv.DebugModeFlag {
 		logMode = logger.Default.LogMode(logger.Info)
