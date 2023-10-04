@@ -1,7 +1,10 @@
 package cntechkitgopostgresdb
 
 import (
+	"fmt"
+
 	"github.com/cntech-io/cntechkit-go/utils"
+	"github.com/joho/godotenv"
 )
 
 type postgresDBEnv struct {
@@ -15,6 +18,9 @@ type postgresDBEnv struct {
 }
 
 func NewPostgresDBEnv() *postgresDBEnv {
+	if err := godotenv.Load(); err != nil {
+		fmt.Println(".env file not found")
+	}
 	return &postgresDBEnv{
 		Host:          utils.GetStringEnv(string(POSTGRESDB_HOST), false),
 		Port:          utils.GetStringEnv(string(POSTGRESDB_PORT), false),
