@@ -1,28 +1,17 @@
-package cntechkitgopostgresdb
+package postgresdb
 
 import (
 	"fmt"
 
-	gokit "github.com/cntech-io/cntechkit-go"
+	e "github.com/cntech-io/cntechkit-go/v2/env"
+	"github.com/cntech-io/cntechkit-go/v2/logger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	gormlogger "gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 )
 
-type PostgresDBEnvName string
-
-const (
-	POSTGRESDB_HOST           PostgresDBEnvName = "POSTGRESDB_HOST"
-	POSTGRESDB_PORT           PostgresDBEnvName = "POSTGRESDB_PORT"
-	POSTGRESDB_DATABASE       PostgresDBEnvName = "POSTGRESDB_DATABASE"
-	POSTGRESDB_USERNAME       PostgresDBEnvName = "POSTGRESDB_USERNAME"
-	POSTGRESDB_PASSWORD       PostgresDBEnvName = "POSTGRESDB_PASSWORD"
-	POSTGRESDB_MIGRATION_FLAG PostgresDBEnvName = "POSTGRESDB_MIGRATION_FLAG"
-	POSTGRESDB_SCHEMA         PostgresDBEnvName = "POSTGRESDB_SCHEMA"
-)
-
-type postgresDBKit struct {
+type postgresDB struct {
 	client *gorm.DB
 }
 
@@ -53,19 +42,19 @@ func dsn() string {
 	)
 }
 
-func NewPostgresDB() *postgresDBKit {
-	return &postgresDBKit{}
+func NewPostgresDB() *postgresDB {
+	return &postgresDB{}
 }
 
-func (pdb *postgresDBKit) Connect() *postgresDBKit {
-	var logMode logger.Interface
+func (pdb *postgresDB) Connect() *postgresDB {
+	var logMode gormlogger.Interface
 
-	serverEnv := gokit.NewServerEnv()
+	serverEnv := e.NewServerEnv()
 
 	if serverEnv.DebugModeFlag {
-		logMode = logger.Default.LogMode(logger.Info)
+		logMode = gormlogger.Default.LogMode(gormlogger.Info)
 	} else {
-		logMode = logger.Default.LogMode(logger.Silent)
+		logMode = gormlogger.Default.LogMode(gormlogger.Silent)
 	}
 
 	db, err := gorm.Open(postgres.Open(dsn()), &gorm.Config{
@@ -80,18 +69,18 @@ func (pdb *postgresDBKit) Connect() *postgresDBKit {
 	if err != nil {
 		panic("Failed to connect to PostgreSQL: " + err.Error())
 	}
-	gokit.NewLogger(
-		&gokit.LoggerConfig{AppName: "cntechkit-gopostgresdb"},
+	logger.NewLogger(
+		&logger.LoggerConfig{AppName: "cntechkit-gopostgresdb"},
 	).Info("Connected to PostgreSQL")
 	pdb.client = db
 
 	return pdb
 }
 
-func (pdb *postgresDBKit) Migrate(dst ...interface{}) {
+func (pdb *postgresDB) Migrate(dst ...interface{}) {
 	pdb.client.AutoMigrate(dst...)
 }
 
-func (pdb *postgresDBKit) Do() *gorm.DB {
+func (pdb *postgresDB) Do() *gorm.DB {
 	return pdb.client
 }

@@ -1,5 +1,5 @@
-github.com/cntech-io/cntechkit-go v1.0.5 h1:g1irr6zi3uqBgjmqN6ay9FUjM0Y0QH0zEqH6I/9n+h0=
-github.com/cntech-io/cntechkit-go v1.0.5/go.mod h1:KLBd95Zkm2VZeC2XbHkOmAX+mWkcPPiy+8EQdDhfaXA=
+github.com/cntech-io/cntechkit-go/v2 v2.0.2 h1:aY2i+L8mAuHRAk6Unaerz0jz4enxtxVQwGKGG0yxpWk=
+github.com/cntech-io/cntechkit-go/v2 v2.0.2/go.mod h1:O0QeP+2iv0xMyiYHgX6FAPq6Mrv4pxMvq+hac7Wz1cI=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
